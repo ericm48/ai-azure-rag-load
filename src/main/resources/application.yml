@@ -3,8 +3,10 @@ spring:
   ai:
     azure:
       openai:
+        #api-key:
+        #endpoint: https://springai.openai.azure.com/
         api-key:
-        endpoint: https://springai.openai.azure.com/
+        endpoint: "https://em-open-ai-ws-1.openai.azure.com/"
         chat:
           options:
             deployment-name: gpt-35-turbo-16k
@@ -14,5 +16,5 @@ spring:
     vectorstore:
       azure:
         api-key: 
-        url: https://springaisearch.search.windows.net
+        url: https://az-search-ai-east.search.windows.net
         index-name: carina_index

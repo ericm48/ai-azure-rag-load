@@ -8,13 +8,10 @@ import org.springframework.ai.reader.pdf.PagePdfDocumentReader;
 import org.springframework.ai.reader.pdf.config.PdfDocumentReaderConfig;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -28,10 +25,10 @@ public class DataLoadingJob implements CommandLineRunner {
 
 	private ApplicationContext applicationContext;
 
-	@Value("classpath:/data/medicaid-wa-faqs.pdf")
+	@Value("classpath:/data/medicaid-wa-faqs-en-US.pdf")
 	private Resource pdfResource;
 
-	@Value("classpath:/data/medicaid-wa-faqs-v2.pdf")
+	@Value("classpath:/data/medicaid-wa-faqs-en-US-v2.pdf")
 	private Resource pdfResource2;
 
 	private final VectorStore vectorStore;
