@@ -21,7 +21,7 @@ import java.util.List;
 @Component
 public class DataLoadingJob implements CommandLineRunner {
 
-	private static final Logger logger = LoggerFactory.getLogger(DataLoadingJob.class);
+	private static final Logger methIDload = LoggerFactory.getLogger(DataLoadingJob.class.getName() + ".load()");
 
 	private ApplicationContext applicationContext;
 
@@ -45,7 +45,10 @@ public class DataLoadingJob implements CommandLineRunner {
 		load(pdfResource2, 2);
 		System.exit(0);
 	}
-	public void load(Resource resource, int version) {
+	public void load(Resource resource, int version)
+	{
+		Logger logger = methIDload;
+
 		// Extract
 		PagePdfDocumentReader pdfReader = new PagePdfDocumentReader(resource,
 				PdfDocumentReaderConfig.builder()
@@ -55,16 +58,16 @@ public class DataLoadingJob implements CommandLineRunner {
 						.build())
 					.withPagesPerDocument(1)
 					.build());
+
 		// Transform
 		var tokenTextSplitter = new TokenTextSplitter();
 
-		logger.info(
-				"File {}.  Parsing splitting, creating embeddings and storing in vector store...", resource.getFilename());
+		logger.info("File {}.  Parsing splitting, creating embeddings and storing in vector store...", resource.getFilename());
 
 		List<Document> splitDocuments = tokenTextSplitter.apply(pdfReader.get());
 		// tag as external knowledge in the vector store's metadata
 		for (Document splitDocument : splitDocuments) {
-			splitDocument.getMetadata().put("filename", "medicaid-wa-faqs.pdf");
+			splitDocument.getMetadata().put("filename", pdfResource.getFilename());
 			splitDocument.getMetadata().put("version", "" + version);
 		}
 
