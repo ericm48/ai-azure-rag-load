@@ -67,7 +67,8 @@ public class DataLoadingJob implements CommandLineRunner {
 		List<Document> splitDocuments = tokenTextSplitter.apply(pdfReader.get());
 		// tag as external knowledge in the vector store's metadata
 		for (Document splitDocument : splitDocuments) {
-			splitDocument.getMetadata().put("filename", pdfResource.getFilename());
+			//splitDocument.getMetadata().put("filename", pdfResource.getFilename());
+			splitDocument.getMetadata().put("filename", resource.getFilename());
 			splitDocument.getMetadata().put("version", "" + version);
 		}
 
